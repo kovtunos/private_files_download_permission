@@ -1,0 +1,5 @@
+entity.pfdp_directory.add_form:
+  route_name: 'entity.pfdp_directory.add_form'
+  title: 'Add directory'
+  appears_on:
+    - entity.pfdp_directory.collection

@@ -1,0 +1,6 @@
+type: module
+name: Private files download permission
+description: Allows by-user and by-role downloads from private file system directories.
+core: 8.x
+package: Media
+configure: private_files_download_permission.admin

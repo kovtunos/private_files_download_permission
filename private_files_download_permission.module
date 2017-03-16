@@ -1,0 +1,69 @@
+<?php
+
+use Drupal\private_files_download_permission\Entity\PrivateFilesDownloadPermissionDirectory;
+use Drupal\Component\Utility\Unicode;
+
+
+/**
+ * Implements hook_file_download().
+ */
+function private_files_download_permission_file_download($uri) {
+  $user = \Drupal::currentUser();
+  // Check if user may bypass permission restrictions.
+  if ($user->hasPermission('bypass private files download permission')) {
+    return array('Content-Type' => \Drupal::service('file.mime_type.guesser')->guess($uri));
+  }
+  else if (($user->hasPermission('bypass private files download permission for temporary files')) && ('temporary://' === substr($uri, 0, 12))) {
+    return array('Content-Type' => \Drupal::service('file.mime_type.guesser')->guess($uri));
+  }
+  // If not, do all the specific checks.
+  else {
+    // Extract the path from $uri, removing the protocol prefix and the file name.
+    $uri_path = explode('/', $uri);
+    array_shift($uri_path);
+    array_shift($uri_path);
+    array_pop($uri_path);
+    // Add a leading slash to $uri_path.
+    $uri_path = '/' . implode('/', $uri_path);
+    // Find the directory which best matches $uri_path.
+    $best_matching_length = 0;
+    $best_matching_directory = NULL;
+    foreach (PrivateFilesDownloadPermissionDirectory::loadMultiple() as $directory) {
+      // Search for the best matching substring.
+      $directory_path = $directory->path;
+      if (0 === stripos($uri_path, $directory_path)) {
+        if (Unicode::strlen($directory_path) > $best_matching_length) {
+          $best_matching_length = Unicode::strlen($directory_path);
+          $best_matching_directory = $directory;
+        }
+      }
+    }
+    if (NULL != $best_matching_directory) {
+      // Check if this module should ignore the call.
+      if ($best_matching_directory->bypass) {
+        return NULL;
+      }
+      // Evaluate user and role permissions and optionally allow access to $uri.
+      if (\Drupal::config('private_files_download_permission.settings')->get('by_user_checks')) {
+        if (in_array($user->id(), $best_matching_directory->users)) {
+          $files = \Drupal::entityManager()
+            ->getStorage('file')
+            ->loadByProperties(array('uri' => $uri));
+          $file = reset($files);
+          return file_get_content_headers($file);
+        }
+      }
+      foreach ($user->getRoles() as $rid) {
+        if (in_array($rid, $best_matching_directory->roles)) {
+          $files = \Drupal::entityManager()
+            ->getStorage('file')
+            ->loadByProperties(array('uri' => $uri));
+          $file = reset($files);
+          return file_get_content_headers($file);
+        }
+      }
+    }
+  }
+  // By default, deny access.
+  return -1;
+}

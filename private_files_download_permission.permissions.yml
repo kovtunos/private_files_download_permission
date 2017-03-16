@@ -1,0 +1,11 @@
+bypass private files download permission:
+  title: 'Bypass Private files download permission'
+  description: 'Download from private directories regardless of permission restrictions.'
+  restrict access: TRUE
+bypass private files download permission for temporary files:
+  title: 'Bypass Private files download permission for temporary files'
+  description: 'Download temporary files regardless of permission restrictions.'
+  restrict access: TRUE
+administer private files download permission:
+  title: 'Administer Private files download permission'
+  description: 'Access module configuration.'

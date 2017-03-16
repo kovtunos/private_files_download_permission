@@ -1,0 +1,25 @@
+private_files_download_permission.pfdp_directory.*:
+  type: config_entity
+  label: 'Private files download permission - Directory config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    path:
+        type: path
+        label: 'Path'
+    bypass:
+        type: boolean
+        label: 'Bypass'
+    users:
+      type: sequence
+      label: 'Users'
+      sequence:
+        type: string
+        label: 'User'
+    roles:
+      type: sequence
+      label: 'Roles'
+      sequence:
+        type: string
+        label: 'Role'

@@ -1,0 +1,8 @@
+entity.pfdp_directory.collection:
+  title: List
+  route_name: entity.pfdp_directory.collection
+  base_route: entity.pfdp_directory.collection
+private_files_download_permission.admin:
+  title: Settings
+  route_name: private_files_download_permission.admin
+  base_route: entity.pfdp_directory.collection

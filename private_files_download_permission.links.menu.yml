@@ -1,0 +1,5 @@
+entity.pfdp_directory.collection:
+  title: 'Private files download permission'
+  parent: system.admin_config_media
+  description: 'Manage by-directory, by-role and by-user download permissions.'
+  route_name: entity.pfdp_directory.collection

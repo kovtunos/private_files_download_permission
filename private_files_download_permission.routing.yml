@@ -1,0 +1,39 @@
+private_files_download_permission.admin:
+  path: '/admin/config/media/private-files-download-permission/preferences'
+  defaults:
+    _form: '\Drupal\private_files_download_permission\Form\PfdpSettingsForm'
+    _title: 'Preferences'
+  requirements:
+    _permission: 'administer private files download permission'
+
+entity.pfdp_directory.collection:
+  path: '/admin/config/media/private-files-download-permission'
+  defaults:
+    _entity_list: 'pfdp_directory'
+    _title: 'List directories'
+  requirements:
+    _permission: 'administer private files download permission'
+
+entity.pfdp_directory.add_form:
+  path: '/admin/config/media/private-files-download-permission/add'
+  defaults:
+    _entity_form: 'pfdp_directory.add'
+    _title: 'Add directory'
+  requirements:
+    _permission: 'administer private files download permission'
+
+entity.pfdp_directory.edit_form:
+  path: '/admin/config/media/private-files-download-permission/{pfdp_directory}'
+  defaults:
+    _entity_form: 'pfdp_directory.edit'
+    _title: 'Edit directory'
+  requirements:
+    _permission: 'administer private files download permission'
+
+entity.pfdp_directory.delete_form:
+  path: '/admin/config/media/private-files-download-permission/{pfdp_directory}/delete'
+  defaults:
+    _entity_form: 'pfdp_directory.delete'
+    _title: 'Delete directory'
+  requirements:
+    _permission: 'administer private files download permission'
