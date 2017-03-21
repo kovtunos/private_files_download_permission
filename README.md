@@ -1,8 +1,8 @@
-Private files download permission
-=================================
+# Private files download permission
 
-INSTALLATION / CONFIGURATION
-----------------------------
+Drupal 8 port of [Private files download permission](https://www.drupal.org/project/private_files_download_permission) module.
+
+## Installation / Configuration
 
 Browse to Configuration > Media > Private files download permission (url:
 /admin/config/media/private-files-download-permission). Then add or edit each
