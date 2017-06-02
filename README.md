@@ -1,3 +1,5 @@
+> UPD: Drupal 8 version of this module was added to [Drupal.org](https://www.drupal.org/project/private_files_download_permission).
+
 # Private files download permission
 
 Drupal 8 port of [Private files download permission](https://www.drupal.org/project/private_files_download_permission) module.
